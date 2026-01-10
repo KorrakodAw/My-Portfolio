@@ -1,0 +1,30 @@
+{
+  "Hero": {
+    "badge": "พร้อมรับงาน",
+    "title": "ผมสร้าง <highlight>Full-Stack</highlight> แอปพลิเคชัน",
+    "role": "นักพัฒนา Full Stack",
+    "description": "สวัสดีครับ ผมกรกฎ เป็น {role} อยู่ที่ {location} ผมเปลี่ยนไอเดียให้กลายเป็นซอฟต์แวร์ที่ใช้งานได้จริงและขยายขนาดได้",
+    "contact": "ติดต่อผม",
+    "work": "ดูผลงาน"
+  },
+  "Nav": {
+    "about": "เกี่ยวกับผม",
+    "skills": "ทักษะ",
+    "projects": "โปรเจกต์"
+  },
+  "About": {
+    "title": "เกี่ยวกับผม",
+    "description": "ผมเป็นนักพัฒนาที่หลงใหลในการสร้างเว็บแอปพลิเคชัน ปัจจุบันโฟกัสไปที่ React ecosystem (Next.js) และการทำ Backend ด้วย Node.js และ PostgreSQL",
+    "locationLabel": "สถานที่",
+    "focusLabel": "โฟกัสงาน",
+    "interestsLabel": "ความสนใจ",
+    "interests": "เทคโนโลยี, การลงทุน, เกม"
+  },
+  "Skills": {
+    "title": "ทักษะทางเทคนิค"
+  },
+  "Projects": {
+    "title": "ผลงานที่น่าสนใจ",
+    "viewCode": "ดูโค้ด"
+  }
+}

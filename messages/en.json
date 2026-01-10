@@ -1,0 +1,30 @@
+{
+  "Hero": {
+    "badge": "Open to work",
+    "title": "I build <highlight>Full-Stack</highlight> applications.",
+    "role": "Full Stack Developer",
+    "description": "Hi, I'm Korrakod. A {role} based in {location}. I transform ideas into robust, scalable software solutions.",
+    "contact": "Contact Me",
+    "work": "View Work"
+  },
+  "Nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects"
+  },
+  "About": {
+    "title": "About Me",
+    "description": "I am a developer passionate about building scalable web applications. Currently focused on the React ecosystem (Next.js) and backend development with Node.js and PostgreSQL.",
+    "locationLabel": "Location",
+    "focusLabel": "Focus",
+    "interestsLabel": "Interests",
+    "interests": "Technology, Investing, Gaming"
+  },
+  "Skills": {
+    "title": "Technical Skills"
+  },
+  "Projects": {
+    "title": "Featured Projects",
+    "viewCode": "View Code"
+  }
+}

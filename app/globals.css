@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  /* Define the custom animation directly in the theme block */
+  --animate-blob: blob 7s infinite;
+  
+  /* Define the keyframes */
+  --keyframes-blob: {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  };
+}
+
+/* Utilities Layer */
+@utility animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* Root Styles */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Dot Pattern Background */
+.bg-grid-zinc-900\/\[0\.02\] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(24 24 27 / 0.02)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+}
