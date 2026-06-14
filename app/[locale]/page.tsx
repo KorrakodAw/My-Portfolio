@@ -1,56 +1,212 @@
+"use client";
+
 import { useTranslations } from "next-intl";
-import { personalInfo, skills, projects } from "../../data/portfolio";
-import { MapPin, Mail, Github, Cpu, Code2, ArrowUpRight } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Github,
+  Cpu,
+  Code2,
+  ArrowUpRight,
+  Calendar,
+  Sparkles,
+  ImageIcon,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import LogoLoop from "@/components/LogoLoop";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiNodedotjs, // 👈 เพิ่ม Node.js
+  SiExpress, // 👈 เพิ่ม Express
+  SiPostgresql, // 👈 เพิ่ม PostgreSQL
+  SiGit, // 👈 เพิ่ม Git
+  SiDocker, // 👈 เพิ่ม Docker
+  SiFigma, // 👈 เพิ่ม Figma
+  SiPostman, // 👈 เพิ่ม Postman
+} from "react-icons/si";
+import { useState } from "react";
+
+import Aurora from "@/components/Aurora";
 
 export default function Home() {
-  const tHero = useTranslations("Hero");
   const tNav = useTranslations("Nav");
+  const tHero = useTranslations("Hero");
   const tAbout = useTranslations("About");
   const tSkills = useTranslations("Skills");
   const tProjects = useTranslations("Projects");
+  const tActivities = useTranslations("Activities");
+
+  const techLogos = [
+    // ─── Frontend ───
+    { node: <SiReact />, title: "React", href: "https://react.dev" },
+    { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+    {
+      node: <SiTypescript />,
+      title: "TypeScript",
+      href: "https://www.typescriptlang.org",
+    },
+    {
+      node: <SiTailwindcss />,
+      title: "Tailwind CSS",
+      href: "https://tailwindcss.com",
+    },
+
+    // ─── Backend & Database ───
+    { node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
+    { node: <SiExpress />, title: "Express", href: "https://expressjs.com" },
+    {
+      node: <SiPostgresql />,
+      title: "PostgreSQL",
+      href: "https://www.postgresql.org",
+    },
+
+    // ─── Tools & Others ───
+    { node: <SiGit />, title: "Git", href: "https://git-scm.com" },
+    { node: <SiDocker />, title: "Docker", href: "https://www.docker.com" },
+    { node: <SiFigma />, title: "Figma", href: "https://www.figma.com" },
+    { node: <SiPostman />, title: "Postman", href: "https://www.postman.com" },
+  ];
+
+  // ==========================================
+  // 👇 แก้ไขข้อมูลส่วนตัวของคุณตรงนี้ได้เลยครับ 👇
+  // ==========================================
+  const myPersonalInfo = {
+    name: "Korrakod Anuwan", // ชื่อของคุณ
+    role: "Full Stack Developer",
+    location: "Lamphun, Thailand",
+    email: "your.email@example.com",
+    github: "https://github.com/yourusername",
+    profileImage: "/profile.png", // ใส่ path รูปโปรไฟล์ของคุณในโฟลเดอร์ public
+  };
+
+  const mySkills = [
+    {
+      category: "Frontend",
+      items: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
+    },
+    {
+      category: "Backend & Database",
+      items: ["Node.js", "Express", "PostgreSQL"],
+    },
+    {
+      category: "Tools & Others",
+      items: ["Git", "Docker", "Figma", "Postman"],
+    },
+  ];
+
+  // 👈 ตรวจสอบให้แน่ใจว่าคุณมีการเรียกใช้งาน hook เช่น const tProjects = useTranslations("projects") ไว้ด้านบนแล้วนะครับ
+  const myProjects = [
+    {
+      id: 1,
+      title: tProjects("hrManager.title"),
+      description: tProjects("hrManager.description"),
+      tech: ["Next.js", "Tailwind CSS", "PostgreSQL"],
+      link: "https://hr-manager-webpage.vercel.app",
+    },
+    {
+      id: 2,
+      title: tProjects("nomnoey.title"),
+      description: tProjects("nomnoey.description"),
+      tech: ["Next.js", "Tailwind CSS"],
+      link: "https://nomnoey-web-page.vercel.app/th",
+    },
+    {
+      id: 3,
+      title: tProjects("ploclo.title"),
+      description: tProjects("ploclo.description"),
+      tech: ["Next.js", "Express", "PostgreSQL"],
+      link: "https://ploclo-cms.zercoms.com",
+    },
+  ];
+
+  const myActivities = [
+    {
+      id: "act-gear-production",
+      title: tActivities("nuProduction.title"),
+      date: "2024 - 2025", // ปรับเปลี่ยนช่วงเวลาจริงตามความเหมาะสมได้ครับ
+      description: tActivities("nuProduction.description"),
+      images: [
+        "/images/gearnu1.jpg", // 👈 พาร์ทรูปภาพประกาศความยินดีรูปนี้
+      ],
+    },
+    {
+      id: "act-nu-hackathon",
+      title: tActivities("nuHackathon.title"),
+      date: "กันยายน 2024",
+      description: tActivities("nuHackathon.description"),
+      images: ["/images/hackathon1.jpg", "/images/hackathon2.jpg"],
+    },
+  ];
+  // ==========================================
+
+  // 👈 วางไว้ด้านบนสุดในฟังก์ชันหลักของ Page
+  const [activePhotoId, setActivePhotoId] = useState<string | number | null>(
+    null,
+  );
+  const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
 
   return (
-    <div className="min-h-screen font-sans selection:bg-indigo-100 selection:text-indigo-900 overflow-hidden text-zinc-800">
-      {/* --- HEADER (Updated: Dark Background + White Text) --- */}
-      <header className="fixed top-0 w-full bg-zinc-900 border-b border-zinc-800 z-50 shadow-md">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <span className="font-bold text-lg sm:text-xl tracking-tight text-white">
-            {personalInfo.name}.
-          </span>
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-indigo-600 selection:text-white relative">
+      {/* 👇 [แก้ไข] เปลี่ยนมาใช้ inset-0 w-full h-full เพื่อบังคับกางแสง Aurora ถาวร ไม่ให้หายไป 👇 */}
+      <div className="fixed inset-0 z-50 w-full h-full opacity-25 mix-blend-screen pointer-events-none overflow-hidden">
+        <Aurora
+          colorStops={["#7cff67", "#B497CF", "#5227FF"]}
+          blend={0.5}
+          amplitude={1.0}
+          speed={1}
+        />
+      </div>
 
-          <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm font-medium text-zinc-300">
-            <div className="hidden sm:flex gap-1 sm:gap-2">
+      {/* --- HEADER NAVIGATION (Dark Glassmorphism) --- */}
+      <header className="fixed top-0 left-0 w-full bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900 z-50 transition-all">
+        <div className="max-w-5xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+          <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            {myPersonalInfo.name}.
+          </span>
+          <nav className="flex items-center gap-1 sm:gap-4 text-sm font-medium text-zinc-400">
+            <div className="hidden md:flex gap-1">
               <a
                 href="#about"
-                className="hover:text-white hover:bg-zinc-800 px-3 py-2 rounded-md transition-all"
+                className="hover:text-white hover:bg-zinc-900 px-3 py-2 rounded-lg transition-all"
               >
                 {tNav("about")}
               </a>
               <a
                 href="#skills"
-                className="hover:text-white hover:bg-zinc-800 px-3 py-2 rounded-md transition-all"
+                className="hover:text-white hover:bg-zinc-900 px-3 py-2 rounded-lg transition-all"
               >
                 {tNav("skills")}
               </a>
               <a
                 href="#projects"
-                className="hover:text-white hover:bg-zinc-800 px-3 py-2 rounded-md transition-all"
+                className="hover:text-white hover:bg-zinc-900 px-3 py-2 rounded-lg transition-all"
               >
                 {tNav("projects")}
               </a>
+              <a
+                href="#activities"
+                className="hover:text-white hover:bg-zinc-900 px-3 py-2 rounded-lg transition-all"
+              >
+                {tNav("activities")}
+              </a>
             </div>
 
-            {/* Language Switcher (Updated colors) */}
-            <div className="flex gap-2 border-l border-zinc-700 pl-3 sm:pl-4 ml-2">
+            {/* Language Switcher */}
+            <div className="flex gap-1 border-l border-zinc-800 pl-4 ml-2">
               <a
                 href="/en"
-                className="hover:text-white hover:bg-zinc-800 px-2 py-1 rounded transition-all font-bold"
+                className="hover:bg-zinc-900 hover:text-white px-2.5 py-1 rounded-md text-xs font-bold transition-all"
               >
                 EN
               </a>
               <a
                 href="/th"
-                className="hover:text-white hover:bg-zinc-800 px-2 py-1 rounded transition-all font-bold"
+                className="hover:bg-zinc-900 hover:text-white px-2.5 py-1 rounded-md text-xs font-bold transition-all"
               >
                 TH
               </a>
@@ -59,82 +215,95 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20 space-y-16 sm:space-y-24 md:space-y-32 relative">
-        {/* --- Background Blobs --- */}
-        <div className="absolute top-0 -left-20 sm:-left-32 w-48 sm:w-72 h-48 sm:h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob -z-10"></div>
-        <div className="absolute top-0 -right-20 sm:-right-32 w-48 sm:w-72 h-48 sm:h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000 -z-10"></div>
+      {/* --- MAIN CONTENT CONTAINER --- */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 pb-24 space-y-24 sm:space-y-32 relative">
+        {/* Background Ambient Lights (Neon Glow Effect) */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 from-indigo-500/10 to-purple-500/10 rounded-full filter blur-3xl opacity-60 -z-10 pointer-events-none" />
 
-        {/* --- HERO SECTION --- */}
-        <section className="space-y-6 sm:space-y-8 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-medium border border-indigo-100 shadow-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-            </span>
-            {tHero("badge")}
+        {/* --- 1. HERO SECTION --- */}
+        <section className="relative flex flex-col-reverse sm:flex-row items-center justify-between gap-8 pt-4 sm:pt-8 min-h-[60vh] sm:min-h-[50vh]">
+          {/* Left Side: Text Details */}
+          <div className="space-y-6 text-center sm:text-left flex-1 relative z-10 transition-all duration-700 transform translate-y-0 opacity-100">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold shadow-sm animate-pulse">
+              <Sparkles className="w-3.5 h-3.5" />
+              {tHero("badge")}
+            </div>
+
+            <h1
+              className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight"
+              dangerouslySetInnerHTML={{
+                __html: tHero
+                  .raw("title")
+                  .replace(
+                    "<highlight>",
+                    '<span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">',
+                  )
+                  .replace("</highlight>", "</span>"),
+              }}
+            />
+
+            <p className="text-lg sm:text-xl text-zinc-300 max-w-xl font-medium leading-relaxed">
+              {tHero("description", {
+                role: myPersonalInfo.role,
+                location: myPersonalInfo.location,
+              })}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-start pt-2">
+              <a
+                href={`mailto:${myPersonalInfo.email}`}
+                className="px-6 py-3.5 bg-zinc-100 text-zinc-950 font-bold rounded-xl hover:bg-indigo-500 hover:text-white transition-all flex items-center justify-center gap-2 shadow-md hover:-translate-y-0.5 text-sm"
+              >
+                <Mail className="w-4 h-4" /> {tHero("contact")}
+              </a>
+              <a
+                href="#projects"
+                className="px-6 py-3.5 bg-zinc-900 border border-zinc-800 text-zinc-300 font-semibold rounded-xl hover:bg-zinc-800 transition-all flex items-center justify-center shadow-sm hover:-translate-y-0.5 text-sm"
+              >
+                {tHero("work")}
+              </a>
+            </div>
           </div>
 
-          <h1
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight text-zinc-300"
-            dangerouslySetInnerHTML={{
-              __html: tHero
-                .raw("title")
-                .replace(
-                  "<highlight>",
-                  '<span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500">'
-                )
-                .replace("</highlight>", "</span>"),
-            }}
-          />
+          {/* Right Side: คลีนเหลือแค่รูปภาพทรงกลม ไม่มีเส้นขอบกวนใจ */}
+          <div className="shrink-0 w-90 h-90 relative group z-10">
+            {/* 👇 เพิ่มเลเยอร์แสงเรืองรองจาง ๆ ไว้ด้านหลัง เพื่อสร้าง Contrast กับพื้นหลัง Aurora 👇 */}
+            <div className="absolute inset-2 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 rounded-full blur-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-          <p className="text-base sm:text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed font-medium">
-            {tHero("description", {
-              role: personalInfo.role,
-              location: personalInfo.location,
-            })}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
-            <a
-              href="mailto:your.email@example.com"
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-zinc-900 text-white font-semibold rounded-lg hover:bg-zinc-800 transition-all flex justify-center items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-sm sm:text-base"
-            >
-              <Mail className="w-4 h-4" /> {tHero("contact")}
-            </a>
-            <a
-              href="#projects"
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-white border border-zinc-200 text-zinc-800 font-semibold rounded-lg hover:bg-zinc-50 transition-all flex justify-center items-center shadow-sm hover:shadow-md hover:-translate-y-0.5 text-sm sm:text-base"
-            >
-              {tHero("work")}
-            </a>
+            <div className="w-full h-full rounded-full overflow-hidden relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={myPersonalInfo.profileImage}
+                alt={myPersonalInfo.name}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
           </div>
         </section>
 
-        {/* --- ABOUT SECTION --- */}
-        <section id="about" className="scroll-mt-20 sm:scroll-mt-24">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 flex items-center gap-2 text-zinc-200">
-            <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />{" "}
-            {tAbout("title")}
+        {/* --- 2. ABOUT ME SECTION --- */}
+        <section id="about" className="scroll-mt-24">
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2.5 text-white border-b border-zinc-900 pb-3">
+            <MapPin className="w-5 h-5 text-indigo-400" /> {tAbout("title")}
           </h2>
-
-          <div className="bg-white/90 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-base sm:text-lg text-zinc-700 leading-relaxed whitespace-pre-line font-normal">
+          <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-900 rounded-2xl p-6 sm:p-8 shadow-md">
+            <p className="text-base sm:text-lg text-zinc-300 leading-relaxed whitespace-pre-line">
               {tAbout("description")}
             </p>
-            <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-zinc-100 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-zinc-800 text-sm">
               <div>
-                <span className="block text-xs font-bold uppercase text-zinc-500 tracking-wider mb-1">
+                <span className="block font-bold text-zinc-500 uppercase tracking-wider text-xs mb-1">
                   {tAbout("locationLabel")}
                 </span>
-                <span className="font-semibold text-zinc-900">
-                  {personalInfo.location}
+                <span className="font-semibold text-zinc-200">
+                  {myPersonalInfo.location}
                 </span>
               </div>
               <div>
-                <span className="block text-xs font-bold uppercase text-zinc-500 tracking-wider mb-1">
+                <span className="block font-bold text-zinc-500 uppercase tracking-wider text-xs mb-1">
                   {tAbout("interestsLabel")}
                 </span>
-                <span className="font-semibold text-zinc-900">
+                <span className="font-semibold text-zinc-200">
                   {tAbout("interests")}
                 </span>
               </div>
@@ -142,74 +311,98 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- SKILLS SECTION --- */}
-        <section id="skills" className="scroll-mt-20 sm:scroll-mt-24">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 flex items-center gap-2 text-zinc-200">
-            <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
-            {tSkills("title")}
+        {/* --- 3. SKILLS SECTION --- */}
+        <section id="skills" className="scroll-mt-24">
+          {/* Header ส่วนหัวของ Skills */}
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2.5 text-white border-b border-zinc-900 pb-3">
+            <Cpu className="w-5 h-5 text-indigo-400" /> {tSkills("title")}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {skills.map((skillGroup) => (
+          {/* ส่วนการ์ดแสดงกลุ่มสกิล (Grid 3 คอลัมน์) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {mySkills.map((group) => (
               <div
-                key={skillGroup.category}
-                className="group bg-white/90 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-zinc-200 hover:border-indigo-300 transition-all shadow-sm hover:shadow-md"
+                key={group.category}
+                className="group relative bg-zinc-900/40 backdrop-blur-md border border-zinc-900 rounded-2xl p-6 shadow-lg hover:border-zinc-800/80 hover:bg-zinc-900/60 transition-all duration-300"
               >
-                <h3 className="font-bold text-base sm:text-lg mb-4 text-zinc-900 group-hover:text-indigo-700 transition-colors">
-                  {skillGroup.category}
+                {/* เอฟเฟกต์แสงสะท้อนจาง ๆ ด้านหลังการ์ดเวลา Hover (ทำให้มิติตื้นลึกดูพรีเมียมขึ้น) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+
+                {/* หัวข้อกลุ่มสกิล: จะเปลี่ยนเป็นสีขาวสว่างและมีความสมูทเวลาเมาส์ชี้ */}
+                <h3 className="font-bold text-zinc-300 group-hover:text-white mb-4 text-base tracking-wide transition-colors duration-300 flex items-center justify-between">
+                  {group.category}
+                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-800 group-hover:bg-indigo-400 transition-colors duration-300" />
                 </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillGroup.items.map((item) => (
+
+                {/* รายการสกิลย่อยภายในหมวดหมู่ */}
+                <div className="flex flex-wrap gap-2 relative z-10">
+                  {group.items.map((skill) => (
                     <span
-                      key={item}
-                      className="px-2.5 sm:px-3 py-1.5 bg-zinc-100 text-zinc-800 text-xs sm:text-sm rounded-md font-medium border border-zinc-200 group-hover:border-indigo-200 group-hover:bg-indigo-50 transition-colors"
+                      key={skill}
+                      className="bg-zinc-950/80 text-zinc-400 border border-zinc-800/60 text-xs px-3 py-1.5 rounded-xl font-medium tracking-wide shadow-sm hover:border-indigo-500/40 hover:text-indigo-300 hover:bg-indigo-500/5 transition-all duration-200 hover:scale-[1.03] cursor-default select-none"
                     >
-                      {item}
+                      {skill}
                     </span>
                   ))}
                 </div>
               </div>
             ))}
           </div>
+
+          {/* 👇 [ปรับปรุง UI] กล่องครอบ LogoLoop: จัดให้โลโก้อยู่กึ่งกลางแนวตั้ง-แนวนอนสวยงาม 👇 */}
+          <div
+            className="w-full relative overflow-hidden mt-10 rounded-2xl  bg-zinc-900/10 flex items-center justify-center"
+            style={{
+              height: "100px", // กระชับพื้นที่ความสูงลงมาเล็กน้อยให้ดูโมเดิร์น ไม่ โย่ง เกินไป
+            }}
+          >
+            <LogoLoop
+              logos={techLogos}
+              speed={40}
+              direction="right"
+              logoHeight={50}
+              gap={50}
+              hoverSpeed={10}
+              scaleOnHover={true}
+              fadeOut={true}
+              fadeOutColor="#09090b" // ใช้สี Zinc-950 เพื่อให้ขอบเบลอกลืนหายไปกับความมืด Aurora ด้านหลัง
+              ariaLabel="Technology tools"
+            />
+          </div>
         </section>
 
-        {/* --- PROJECTS SECTION --- */}
-        <section id="projects" className="scroll-mt-20 sm:scroll-mt-24">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 flex items-center gap-2 text-zinc-200">
-            <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
-            {tProjects("title")}
+        {/* --- 4. PROJECTS SECTION --- */}
+        <section id="projects" className="scroll-mt-24">
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2.5 text-white border-b border-zinc-900 pb-3">
+            <Code2 className="w-5 h-5 text-indigo-400" /> {tProjects("title")}
           </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            {projects.map((project) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {myProjects.map((project) => (
               <div
                 key={project.id}
-                className="group flex flex-col bg-white/90 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 hover:border-indigo-200 relative overflow-hidden"
+                className="group flex flex-col bg-zinc-900/40 border border-zinc-900 rounded-2xl p-6 shadow-md hover:shadow-xl hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/0 via-indigo-50/0 to-indigo-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-
-                <div className="flex justify-between items-start mb-4 relative gap-2">
-                  <h3 className="text-base sm:text-xl font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">
+                <div className="flex justify-between items-start gap-4 mb-3">
+                  <h3 className="font-bold text-lg text-white group-hover:text-indigo-400 transition-colors">
                     {project.title}
                   </h3>
                   <a
                     href={project.link}
                     target="_blank"
-                    className="text-zinc-400 hover:text-indigo-600 transition-colors flex-shrink-0"
+                    rel="noreferrer"
+                    className="text-zinc-500 hover:text-indigo-400 transition-colors"
                   >
-                    <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <ArrowUpRight className="w-5 h-5" />
                   </a>
                 </div>
-
-                <p className="text-sm sm:text-base text-zinc-700 mb-4 sm:mb-6 flex-grow leading-relaxed relative">
+                <p className="text-sm text-zinc-400 leading-relaxed mb-6 flex-grow">
                   {project.description}
                 </p>
-
-                <div className="flex flex-wrap gap-2 mt-auto relative">
+                <div className="flex flex-wrap gap-1.5 mt-auto">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2 sm:px-2.5 py-1 bg-indigo-50 text-indigo-800 text-xs font-semibold rounded border border-indigo-100 group-hover:bg-indigo-100 transition-colors"
+                      className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold px-2 py-1 rounded-md"
                     >
                       {t}
                     </span>
@@ -219,24 +412,136 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* --- 5. ACTIVITIES SECTION --- */}
+        <section id="activities" className="scroll-mt-24">
+          {/* หัวข้อกิจกรรม */}
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2.5 text-white border-b border-zinc-900 pb-3">
+            <Calendar className="w-5 h-5 text-indigo-400" />{" "}
+            {tActivities("title")}
+          </h2>
+
+          {/* แกน Timeline */}
+          <div className="relative border-l-2 border-zinc-800 ml-3 pl-6 space-y-8">
+            {myActivities.map((act) => {
+              const isPhotosOpen = activePhotoId === act.id;
+
+              // ตรวจสอบเช็คอาร์เรย์รูปภาพให้เสถียร
+              const imagesArray = Array.isArray(act.images)
+                ? act.images
+                : act.images
+                  ? [act.images]
+                  : [];
+
+              return (
+                <div key={act.id} className="relative group">
+                  {/* 📍 [FIXED UI] จุดวงกลม Timeline: ใช้ -left-[31px] เพื่อให้อยู่กึ่งกลางเส้นแกนซ้ายพอดีเป๊ะ */}
+                  <div className="absolute -left-[31px] top-1.5 bg-zinc-950 border-2 border-indigo-400 w-4 h-4 rounded-full group-hover:bg-indigo-400 transition-colors duration-200 shadow-[0_0_8px_rgba(129,140,248,0.5)] z-10" />
+
+                  {/* ชื่อและวันที่ */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2">
+                    <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-indigo-400 transition-colors">
+                      {act.title}
+                    </h3>
+                    <span className="text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800 px-2.5 py-1 rounded-full w-fit shrink-0">
+                      {act.date}
+                    </span>
+                  </div>
+
+                  {/* คำอธิบาย */}
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-3">
+                    {act.description}
+                  </p>
+
+                  {/* ปุ่มกดเปิดแกลเลอรีรูปภาพ */}
+                  {imagesArray.length > 0 && (
+                    <div className="pt-1">
+                      <button
+                        onClick={() => {
+                          setActivePhotoId(isPhotosOpen ? null : act.id);
+                          if (typeof setCurrentImgIndex === "function")
+                            setCurrentImgIndex(0);
+                        }}
+                        className={`inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl border select-none transition-all duration-300 active:scale-95 ${
+                          isPhotosOpen
+                            ? "bg-indigo-500/10 border-indigo-500/30 text-indigo-300 shadow-[0_0_12px_rgba(129,140,248,0.15)]"
+                            : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 hover:bg-zinc-800/50 hover:shadow-sm"
+                        }`}
+                      >
+                        {/* ไอคอนรูปภาพ: เติมแอนิเมชันให้เอียงและขยับเบา ๆ เวลาเมาส์ชี้กลุ่มปุ่ม */}
+                        <ImageIcon
+                          className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-6 ${isPhotosOpen ? "text-indigo-400" : ""}`}
+                        />
+
+                        {/* ข้อความแสดงผล */}
+                        <span className="font-medium tracking-wide">
+                          {isPhotosOpen
+                            ? "Hide Photos"
+                            : `View Photos (${imagesArray.length})`}
+                        </span>
+
+                        {/* ลูกศรชี้ลง: หมุน 180 องศาแบบนุ่มนวลเมื่อเปิด และเพิ่มระยะห่างช่องไฟเล็กน้อย */}
+                        <ChevronDown
+                          className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                            isPhotosOpen
+                              ? "rotate-180 text-indigo-400"
+                              : "text-zinc-500"
+                          }`}
+                        />
+                      </button>
+
+                      {/* 🖼️ [FIXED UI] ลบชั้นที่ซ้อนกันออก เหลือกล่องอนิเมชัน Smooth Slide ชั้นเดียวคลีน ๆ */}
+                      <div
+                        className={`grid transition-all duration-500 ease-in-out overflow-hidden ${
+                          isPhotosOpen
+                            ? "grid-rows-[1fr] mt-4 opacity-100"
+                            : "grid-rows-[0fr] opacity-0"
+                        }`}
+                      >
+                        <div className="overflow-hidden min-h-0">
+                          {/* กล่อง Grid แสดงรูปภาพทั้งหมดพร้อมกันกางออก 2 คอลัมน์บนจอใหญ่ */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl bg-zinc-900/20 p-3 rounded-2xl border border-zinc-900/60 shadow-inner">
+                            {imagesArray.map((imgUrl, imgIndex) => (
+                              <div
+                                key={imgIndex}
+                                className="relative rounded-xl overflow-hidden border border-zinc-900 bg-zinc-950 group/img aspect-[4/3] w-full"
+                              >
+                                {/* 🖼️ [FIXED UI] ปรับให้รูปขยายเต็มพื้นที่กรอบสี่เหลี่ยมสัดส่วน 4:3 เท่ากันทุกใบ ไม่ยืดไม่เบี้ยว */}
+                                <img
+                                  src={imgUrl}
+                                  alt={`${act.title} gallery photo ${imgIndex + 1}`}
+                                  className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105"
+                                  loading="lazy"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </main>
 
-      {/* --- FOOTER (Updated: Dark Background + Light Text) --- */}
-      <footer className="border-t border-zinc-800 py-6 sm:py-8 bg-zinc-900 mt-auto">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-zinc-400 text-xs sm:text-sm">
+      {/* --- FOOTER SECTION --- */}
+      <footer className="border-t border-zinc-900 bg-zinc-950 py-8 text-center text-sm text-zinc-500">
+        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p>
-            © {new Date().getFullYear()} {personalInfo.name}. All rights
+            © {new Date().getFullYear()} {myPersonalInfo.name}. All rights
             reserved.
           </p>
-          <div className="flex gap-4">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              className="hover:text-white transition-colors flex items-center gap-1 font-medium text-zinc-400"
-            >
-              <Github className="w-4 h-4" /> GitHub
-            </a>
-          </div>
+          <a
+            href={myPersonalInfo.github}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 hover:text-white font-medium transition-colors"
+          >
+            <Github className="w-4 h-4" /> GitHub
+          </a>
         </div>
       </footer>
     </div>

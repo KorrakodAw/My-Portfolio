@@ -1,30 +1,49 @@
 {
-  "Hero": {
-    "badge": "Open to work",
-    "title": "I build <highlight>Full-Stack</highlight> applications.",
-    "role": "Full Stack Developer",
-    "description": "Hi, I'm Korrakod. A {role} based in {location}. I transform ideas into robust, scalable software solutions.",
-    "contact": "Contact Me",
-    "work": "View Work"
-  },
   "Nav": {
     "about": "About",
     "skills": "Skills",
-    "projects": "Projects"
+    "projects": "Projects",
+    "activities": "Activities"
+  },
+  "Hero": {
+    "badge": "Available for Work",
+    "title": "Hi, I'm <highlight>Korrakod Anuwan</highlight>",
+    "description": "Welcome to my portfolio",
+    "contact": "Contact Me",
+    "work": "View Work"
   },
   "About": {
     "title": "About Me",
-    "description": "I am a developer passionate about building scalable web applications. Currently focused on the React ecosystem (Next.js) and backend development with Node.js and PostgreSQL.",
+    "description": "Computer Engineering graduate specializing in Frontend Development (React/Next.js) with Full-Stack experience. Skilled in translating Figma designs into responsive, production-ready websites. Experienced in delivering production-grade projects within the LINE Ecosystem. Having completed all coursework, I am available to start working full-time immediately.",
     "locationLabel": "Location",
-    "focusLabel": "Focus",
     "interestsLabel": "Interests",
-    "interests": "Technology, Investing, Gaming"
+    "interests": "Coding, Gaming"
   },
-  "Skills": {
-    "title": "Technical Skills"
-  },
+  "Skills": { "title": "My Skills" },
   "Projects": {
-    "title": "Featured Projects",
-    "viewCode": "View Code"
+  "title": "Projects",
+  "hrManager": {
+    "title": "HR Manager Webpage",
+    "description": "A web application for internal employee data management, featuring employee CRUD operations, department structural logs, and job position assignments. Developed using Next.js for the Frontend and PostgreSQL for data scaling."
+  },
+  "nomnoey": {
+    "title": "Nomnoey Webpage",
+    "description": "A fully responsive, modern single-page restaurant portfolio website featuring dynamic layouts built natively using Next.js and Tailwind CSS."
+  },
+  "ploclo": {
+    "title": "PLOCLO Management System",
+    "description": "A robust content and project management platform developed for PLOCLO (a subsidiary of LINE) to streamline internal project tasks and resource allocations using Next.js and PostgreSQL."
+  }
+},
+  "Activities": {
+    "title": "Activities & Leadership",
+    "nuHackathon": {
+      "title": "NU Hackathon & Pitching Competition",
+      "description": "Participated in the hackathon, collaborating within a 48-hour timeframe to design, develop, and pitch a specialized mobile application tailored for software testers, integrated with AI features to optimize automated reporting workflows."
+    },
+    "nuProduction": {
+      "title": "President of Gear NU Production Club",
+      "description": "Honored with the Outstanding Extracurricular Student Leader Award (Academic Year 2024) from Naresuan University for demonstrating exceptional leadership, driving club initiatives, and managing collaborative student activities."
+    }
   }
 }
