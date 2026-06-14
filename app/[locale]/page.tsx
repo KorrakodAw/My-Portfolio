@@ -81,7 +81,7 @@ export default function Home() {
     role: "Full Stack Developer",
     location: "Lamphun, Thailand",
     email: "your.email@example.com",
-    github: "https://github.com/yourusername",
+    github: "https://github.com/KorrakodAw",
     profileImage: "/profile.png", // ใส่ path รูปโปรไฟล์ของคุณในโฟลเดอร์ public
   };
 
@@ -555,7 +555,7 @@ export default function Home() {
           onClick={scrollToTop}
           className={`fixed z-50 rounded-xl flex items-center justify-center p-[2px] overflow-hidden select-none shadow-2xl transition-all duration-500 active:scale-95 group/topbtn
     /* 📱 Responsive Space: บนมือถือกระชับพื้นที่ จอคอมขยับสเปซสวยงาม */
-    bottom-4 right-4 sm:bottom-6 sm:right-6
+    bottom-6 right-4 sm:bottom-16 sm:right-6
     ${
       showTopButton
         ? "opacity-100 translate-y-0 pointer-events-auto"
