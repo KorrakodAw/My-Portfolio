@@ -549,17 +549,32 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 🚀 ปุ่ม Scroll to Top แบบ Responsive & Dynamic Interaction */}
+        {/* 🚀 ปุ่ม Scroll to Top เวอร์ชันเส้นแสงวิ่งรอบขอบแบบ Responsive */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-6 right-56 z-50 p-3 rounded-xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/30 hover:bg-zinc-900 shadow-lg transition-all duration-500 active:scale-95 flex items-center justify-center ${
-            showTopButton
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 translate-y-4 pointer-events-none"
-          }`}
+          className={`fixed z-50 rounded-xl flex items-center justify-center p-[2px] overflow-hidden select-none shadow-2xl transition-all duration-500 active:scale-95 group/topbtn
+    /* 📱 Responsive Space: บนมือถือกระชับพื้นที่ จอคอมขยับสเปซสวยงาม */
+    bottom-4 right-4 sm:bottom-6 sm:right-6
+    ${
+      showTopButton
+        ? "opacity-100 translate-y-0 pointer-events-auto"
+        : "opacity-0 translate-y-4 pointer-events-none"
+    }`}
           aria-label="Scroll to top"
         >
-          {/* ใช้ไอคอน ArrowUp จาก lucide-react เพื่อชี้ขึ้นด้านบน */}
-          <ArrowUp className="w-5 h-5 animate-[bounce_3s_infinite]" />
+          {/* ⚡ 1. เลเยอร์เส้นแสงวิ่งวนรอบขอบด้านหลัง (Border Light Loop) */}
+          <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#818cf8_0%,#c084fc_50%,#818cf8_100%)] opacity-40 group-hover/topbtn:opacity-100 group-hover/topbtn:animate-[spin_2s_linear_infinite] transition-all duration-500" />
+
+          {/* 🔒 2. กล่องเนื้อหาด้านใน (ตัวกั้นสีมืดทับเส้นแสง เพื่อให้เหลือเฉพาะขอบที่เรืองแสง) */}
+          <div
+            className="w-full h-full rounded-[10px] bg-zinc-950/95 backdrop-blur-md text-zinc-400 group-hover/topbtn:text-white transition-colors duration-300
+    /* 📱 Responsive Sizing: บนมือถือขนาดกะทัดรัด จอคอมขนาดปกติ */
+    p-2.5 sm:p-3"
+          >
+            {/* ไอคอนลูกศรขยับขึ้นลงเบา ๆ */}
+            <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 animate-[bounce_3s_infinite]" />
+          </div>
         </button>
       </main>
 
