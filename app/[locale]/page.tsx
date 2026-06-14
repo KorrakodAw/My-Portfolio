@@ -14,6 +14,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ArrowUp,
 } from "lucide-react";
 import LogoLoop from "@/components/LogoLoop";
 import {
@@ -29,7 +30,7 @@ import {
   SiFigma, // 👈 เพิ่ม Figma
   SiPostman, // 👈 เพิ่ม Postman
 } from "react-icons/si";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Aurora from "@/components/Aurora";
 
@@ -128,7 +129,7 @@ export default function Home() {
     {
       id: "act-gear-production",
       title: tActivities("nuProduction.title"),
-      date: "2024 - 2025", // ปรับเปลี่ยนช่วงเวลาจริงตามความเหมาะสมได้ครับ
+      date: tActivities("nuProduction.date"),
       description: tActivities("nuProduction.description"),
       images: [
         "/images/gearnu1.jpg", // 👈 พาร์ทรูปภาพประกาศความยินดีรูปนี้
@@ -137,7 +138,7 @@ export default function Home() {
     {
       id: "act-nu-hackathon",
       title: tActivities("nuHackathon.title"),
-      date: "กันยายน 2024",
+      date: tActivities("nuHackathon.date"),
       description: tActivities("nuHackathon.description"),
       images: ["/images/hackathon1.jpg", "/images/hackathon2.jpg"],
     },
@@ -149,6 +150,28 @@ export default function Home() {
     null,
   );
   const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
+  const [showTopButton, setShowTopButton] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // ปุ่มจะแสดงขึ้นมาเมื่อผู้ใช้เลื่อนหน้าจอลงมาเกิน 400 พิกเซล
+      if (window.scrollY > 400) {
+        setShowTopButton(true);
+      } else {
+        setShowTopButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // เลื่อนขึ้นไปบนสุดแบบนุ่มนวล ไม่กระตุกตัดฉับ
+    });
+  };
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-indigo-600 selection:text-white relative">
@@ -525,6 +548,19 @@ export default function Home() {
             })}
           </div>
         </section>
+
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-6 right-56 z-50 p-3 rounded-xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/30 hover:bg-zinc-900 shadow-lg transition-all duration-500 active:scale-95 flex items-center justify-center ${
+            showTopButton
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
+          aria-label="Scroll to top"
+        >
+          {/* ใช้ไอคอน ArrowUp จาก lucide-react เพื่อชี้ขึ้นด้านบน */}
+          <ArrowUp className="w-5 h-5 animate-[bounce_3s_infinite]" />
+        </button>
       </main>
 
       {/* --- FOOTER SECTION --- */}

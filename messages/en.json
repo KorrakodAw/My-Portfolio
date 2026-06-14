@@ -21,29 +21,31 @@
   },
   "Skills": { "title": "My Skills" },
   "Projects": {
-  "title": "Projects",
-  "hrManager": {
-    "title": "HR Manager Webpage",
-    "description": "A web application for internal employee data management, featuring employee CRUD operations, department structural logs, and job position assignments. Developed using Next.js for the Frontend and PostgreSQL for data scaling."
+    "title": "Projects",
+    "hrManager": {
+      "title": "HR Manager Webpage",
+      "description": "A web application for internal employee data management, featuring employee CRUD operations, department structural logs, and job position assignments. Developed using Next.js for the Frontend and PostgreSQL for data scaling."
+    },
+    "nomnoey": {
+      "title": "Nomnoey Webpage",
+      "description": "A fully responsive, modern single-page restaurant portfolio website featuring dynamic layouts built natively using Next.js and Tailwind CSS."
+    },
+    "ploclo": {
+      "title": "PLOCLO Management System",
+      "description": "A robust content and project management platform developed for PLOCLO (a subsidiary of LINE) to streamline internal project tasks and resource allocations using Next.js and PostgreSQL."
+    }
   },
-  "nomnoey": {
-    "title": "Nomnoey Webpage",
-    "description": "A fully responsive, modern single-page restaurant portfolio website featuring dynamic layouts built natively using Next.js and Tailwind CSS."
-  },
-  "ploclo": {
-    "title": "PLOCLO Management System",
-    "description": "A robust content and project management platform developed for PLOCLO (a subsidiary of LINE) to streamline internal project tasks and resource allocations using Next.js and PostgreSQL."
-  }
-},
   "Activities": {
     "title": "Activities & Leadership",
     "nuHackathon": {
       "title": "NU Hackathon & Pitching Competition",
-      "description": "Participated in the hackathon, collaborating within a 48-hour timeframe to design, develop, and pitch a specialized mobile application tailored for software testers, integrated with AI features to optimize automated reporting workflows."
+      "description": "Participated in the hackathon, collaborating within a 48-hour timeframe to design, develop, and pitch a specialized mobile application tailored for software testers, integrated with AI features to optimize automated reporting workflows.",
+      "date": "September 2024"
     },
     "nuProduction": {
       "title": "President of Gear NU Production Club",
-      "description": "Honored with the Outstanding Extracurricular Student Leader Award (Academic Year 2024) from Naresuan University for demonstrating exceptional leadership, driving club initiatives, and managing collaborative student activities."
+      "description": "Honored with the Outstanding Extracurricular Student Leader Award (Academic Year 2024) from Naresuan University for demonstrating exceptional leadership, driving club initiatives, and managing collaborative student activities.",
+      "date": "2024 - 2025"
     }
   }
 }
