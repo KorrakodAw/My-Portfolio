@@ -47,5 +47,26 @@
       "description": "Honored with the Outstanding Extracurricular Student Leader Award (Academic Year 2024) from Naresuan University for demonstrating exceptional leadership, driving club initiatives, and managing collaborative student activities.",
       "date": "2024 - 2025"
     }
+  },
+  "Education": {
+    "title": "Education",
+    "edu-nu": {
+      "university": "Naresuan University",
+      "degree": "Bachelor of Engineering (B.Eng.) in Computer Engineering",
+      "duration": "2022 - 2026",
+      "gpa": "GPAX: 3.XX"
+    },
+    "edu-highschool": {
+      "university": "Kham Khanathon School, Lamphun",
+      "degree": "High School Diploma",
+      "duration": "2019 - 2022",
+      "gpa": "GPAX: 3.XX"
+    },
+    "edu-middleschool": {
+      "university": "Suanboonyopatham Lamphun School",
+      "degree": "Middle School Diploma",
+      "duration": "2013 - 2019",
+      "gpa": "GPAX: 3.XX"
+    }
   }
 }

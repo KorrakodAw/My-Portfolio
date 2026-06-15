@@ -15,6 +15,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowUp,
+  GraduationCap,
 } from "lucide-react";
 import LogoLoop from "@/components/LogoLoop";
 import {
@@ -41,6 +42,7 @@ export default function Home() {
   const tSkills = useTranslations("Skills");
   const tProjects = useTranslations("Projects");
   const tActivities = useTranslations("Activities");
+  const tEducation = useTranslations("Education");
 
   const techLogos = [
     // ─── Frontend ───
@@ -122,6 +124,36 @@ export default function Home() {
       description: tProjects("ploclo.description"),
       tech: ["Next.js", "Express", "PostgreSQL"],
       link: "https://ploclo-cms.zercoms.com",
+    },
+  ];
+
+  // 👈 อย่าลืมเรียกใช้งาน hook คุมภาษา เช่น const tEducation = useTranslations("education")
+  const myEducation = [
+    {
+      id: "nu",
+      university: tEducation("edu-nu.university"),
+      degree: tEducation("edu-nu.degree"),
+      date: tEducation("edu-nu.duration"),
+      gpa: tEducation("edu-nu.gpa"),
+      logo: "/images/university.png",
+    },
+    {
+      id: "highschool",
+      // ดึงข้อมูลผ่าน Key ของสถาบันที่ 2 (edu-highschool)
+      university: tEducation("edu-highschool.university"),
+      degree: tEducation("edu-highschool.degree"),
+      date: tEducation("edu-highschool.duration"),
+      gpa: tEducation("edu-highschool.gpa"),
+      // 💡 ฝังพาร์ทโลโก้ของสถาบันที่ 2 ไว้ที่ ID นี้โดยตรง (อย่าลืมเตรียมไฟล์ภาพไว้นะครับ)
+      logo: "/images/highschool.png",
+    },
+    {
+      id: "middleschool",
+      university: tEducation("edu-middleschool.university"),
+      degree: tEducation("edu-middleschool.degree"),
+      date: tEducation("edu-middleschool.duration"),
+      gpa: tEducation("edu-middleschool.gpa"),
+      logo: "/images/middleschool.png",
     },
   ];
 
@@ -331,6 +363,65 @@ export default function Home() {
                 </span>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="Education" className="scroll-mt-24">
+          {/* หัวข้อเซกชันประวัติการศึกษา */}
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2.5 text-white border-b border-zinc-900 pb-3">
+            <GraduationCap className="w-5 h-5 text-indigo-400" />{" "}
+            {tEducation("title")}
+          </h2>
+
+          {/* โครงสร้างแกน Timeline */}
+          <div className="relative border-l-2 border-zinc-800 ml-3 pl-6 space-y-8">
+            {myEducation.map((edu) => (
+              <div key={edu.id} className="relative group">
+                {/* จุดวงกลมเรืองแสงสีกรมท่า-คราม ล็อกตำแหน่งตรงแกนเส้นเวลา */}
+                <div className="absolute -left-7.75 top-1.5 bg-zinc-950 border-2 border-indigo-400 w-4 h-4 rounded-full group-hover:bg-indigo-400 transition-colors duration-200 shadow-[0_0_8px_rgba(129,140,248,0.5)] z-10" />
+
+                {/* 📦 [UPDATED UI] ส่วนแสดงโลโก้คู่กับเนื้อหาประวัติการศึกษา */}
+                {/* ส่วนแสดงโลโก้คู่กับเนื้อหาประวัติการศึกษา */}
+                {/* 📱💻 ทุกหน้าจอ (รวมถึงมือถือ): ใช้ flex-row เพื่อล็อกให้ โลโก้อยู่ซ้าย และ ข้อความอยู่ทางขวา เสมอ ไม่ตกไปอยู่ด้านล่าง */}
+                <div className="flex flex-row items-start gap-4">
+                  {/* 🎓 กล่องรูปภาพโลโก้: อยู่ทางซ้ายมือเสมอตลอดเวลาทุกขนาดหน้าจอ */}
+                  {edu.logo && (
+                    <div className="w-24 h-24 sm:w-24 sm:h-24 shrink-0 rounded-xl  bg-amber-50 p-2 flex items-center justify-center overflow-hidden shadow-md group-hover:border-zinc-700 transition-colors duration-300">
+                      <img
+                        src={edu.logo}
+                        alt={`${edu.university} logo`}
+                        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  {/* 📝 กล่องข้อความรายละเอียดข้อมูลการศึกษา: อยู่ทางขวาของโลโก้เสมอ ไม่ตกไปอยู่ข้างล่างแล้ว */}
+                  <div className="flex-1 min-w-0">
+                    {/* ชื่อมหาวิทยาลัย และ ช่วงปีที่ศึกษา */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-1.5 mb-1.5">
+                      <h3 className="font-bold text-base sm:text-lg text-zinc-100 group-hover:text-indigo-400 transition-colors duration-300 tracking-wide break-words">
+                        {edu.university}
+                      </h3>
+                      <span className="text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800/60 px-2.5 py-1 rounded-full w-fit shrink-0 select-none">
+                        {edu.date}
+                      </span>
+                    </div>
+
+                    {/* วุฒิการศึกษาและสาขา */}
+                    <p className="text-sm sm:text-base text-zinc-400 font-medium mb-3 tracking-wide">
+                      {edu.degree}
+                    </p>
+
+                    {/* เกรดเฉลี่ยสะสม (GPAX Badge) */}
+                    {/* <div className="inline-flex items-center gap-1.5 text-xs bg-indigo-500/5 text-indigo-300 border border-indigo-500/20 px-2.5 py-1 rounded-xl font-medium shadow-sm select-none">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                      {edu.gpa}
+                    </div> */}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
