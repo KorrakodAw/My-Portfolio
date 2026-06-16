@@ -32,6 +32,8 @@ import {
   SiPostman, // 👈 เพิ่ม Postman
 } from "react-icons/si";
 import { useState, useEffect } from "react";
+import Link from "next/link"; // 👈 อย่าลืมอิมพอร์ต Link ไว้ด้านบนสุดของไฟล์นะครับ
+import { useParams } from "next/navigation";
 
 import Aurora from "@/components/Aurora";
 
@@ -43,6 +45,9 @@ export default function Home() {
   const tProjects = useTranslations("Projects");
   const tActivities = useTranslations("Activities");
   const tEducation = useTranslations("Education");
+
+  const params = useParams();
+  const locale = params.locale; // 👈 จะได้ค่า "th" หรือ "en" ตาม URL ปัจจุบัน
 
   const techLogos = [
     // ─── Frontend ───
@@ -107,23 +112,20 @@ export default function Home() {
     {
       id: 1,
       title: tProjects("hrManager.title"),
-      description: tProjects("hrManager.description"),
+      description: tProjects("hrManager.shortDescription"),
       tech: ["Next.js", "Tailwind CSS", "PostgreSQL"],
-      link: "https://hr-manager-webpage.vercel.app",
     },
     {
       id: 2,
       title: tProjects("nomnoey.title"),
-      description: tProjects("nomnoey.description"),
+      description: tProjects("nomnoey.shortDescription"),
       tech: ["Next.js", "Tailwind CSS"],
-      link: "https://nomnoey-web-page.vercel.app/th",
     },
     {
       id: 3,
       title: tProjects("ploclo.title"),
-      description: tProjects("ploclo.description"),
+      description: tProjects("ploclo.shortDescription"),
       tech: ["Next.js", "Express", "PostgreSQL"],
-      link: "https://ploclo-cms.zercoms.com",
     },
   ];
 
@@ -490,39 +492,41 @@ export default function Home() {
           <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2.5 text-white border-b border-zinc-900 pb-3">
             <Code2 className="w-5 h-5 text-indigo-400" /> {tProjects("title")}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {myProjects.map((project) => (
-              <div
+              /* 👇 เปลี่ยนแท็กครอบด้านนอกสุดให้เป็น Link เพื่อให้กดคลิกได้ทั้งกล่องโปรเจกต์ 👇 */
+              <Link
                 key={project.id}
-                className="group flex flex-col bg-zinc-900/40 border border-zinc-900 rounded-2xl p-6 shadow-md hover:shadow-xl hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                href={`/${locale}/projects/${project.id}`} // 👈 วิ่งไปยังหน้า dynamic route ที่ระบุตาม ID โปรเจกต์
+                className="group relative block bg-zinc-900/40 backdrop-blur-md border border-zinc-900 rounded-2xl p-6 shadow-lg hover:border-zinc-800/80 hover:bg-zinc-900/60 transition-all duration-300 overflow-hidden cursor-pointer active:scale-[0.99]"
               >
-                <div className="flex justify-between items-start gap-4 mb-3">
-                  <h3 className="font-bold text-lg text-white group-hover:text-indigo-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-zinc-500 hover:text-indigo-400 transition-colors"
-                  >
-                    <ArrowUpRight className="w-5 h-5" />
-                  </a>
-                </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-6 flex-grow">
+                {/* แสงออโรร่าเรืองแสงจาง ๆ เวลา Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+
+                {/* หัวข้อโปรเจกต์ */}
+                <h3 className="font-bold text-zinc-300 group-hover:text-white mb-2 text-base tracking-wide transition-colors duration-300 flex items-center justify-between">
+                  {project.title}
+                  {/* ไอคอนระบุว่าสามารถกดเปิดต่อได้ */}
+                  <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                </h3>
+
+                {/* รายละเอียดโปรเจกต์แบบย่อ */}
+                <p className="text-sm text-zinc-400 leading-relaxed mb-6 line-clamp-5 min-h-[100px] sm:min-h-[120px] whitespace-pre-line">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-1.5 mt-auto">
+
+                {/* รายการเทคโนโลยี */}
+                <div className="flex flex-wrap gap-1.5 relative z-10">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold px-2 py-1 rounded-md"
+                      className="bg-zinc-950 text-zinc-400 border border-zinc-800/60 text-[10px] px-2 py-1 rounded-md font-medium"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

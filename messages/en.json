@@ -22,17 +22,23 @@
   "Skills": { "title": "My Skills" },
   "Projects": {
     "title": "Projects",
+    "aboutProject": "Project Details",
+    "visitLive": "Visit Live Project",
+    "backToPort": "Back to Portfolio",
     "hrManager": {
       "title": "HR Manager Webpage",
-      "description": "A web application for internal employee data management, featuring employee CRUD operations, department structural logs, and job position assignments. Developed using Next.js for the Frontend and PostgreSQL for data scaling."
+      "shortDescription": "A comprehensive HRM web application for managing employee directories, departments, and payroll structures.",
+      "description": "[Overview]\nA Human Resource Management (HRM) web application designed to simplify workforce and organizational structures for medium to large enterprises, supporting seamless real-time data handling.\n\n[Key Features]\n• Employee Directory: Centralized database to search, filter, and view employee profiles by department.\n• CRUD Operations: Full capability to create, read, update, and delete employee, department, and position logs.\n• Department Structure: Flexible hierarchy control panels to maintain robust data integrity.\n• System Performance: High-speed interactions optimized for heavy data manipulation.\n\n[Tech Stack & Implementation]\nBuilt with Next.js and Tailwind CSS on the frontend for a modern, rapid UI experience, securely integrated with a PostgreSQL database backend via RESTful APIs."
     },
     "nomnoey": {
       "title": "Nomnoey Webpage",
-      "description": "A fully responsive, modern single-page restaurant portfolio website featuring dynamic layouts built natively using Next.js and Tailwind CSS."
+      "shortDescription": "A premium responsive restaurant landing page built to showcase menus and optimize online brand presence.",
+      "description": "[Overview]\nA single-page landing website developed for \"Nomnoey\" restaurant and bakery, dedicated to showcasing their menu items, boosting brand online presence, and driving offline foot traffic.\n\n[Key Features]\n• Responsive Menu Display: Fully interactive food menu layouts that scale beautifully across mobile and desktop interfaces.\n• Location & Contact Integration: Smooth embedded Google Maps components alongside clean contact form logic.\n• Performance Optimized: Compressed high-fidelity assets to ensure rapid loading speeds and lower bounce rates.\n\n[Tech Stack & Implementation]\nArchitected using Next.js and Tailwind CSS, focusing on a clean, appetite-inducing color palette and semantic HTML for strong SEO fundamentals."
     },
     "ploclo": {
       "title": "PLOCLO Management System",
-      "description": "A robust content and project management platform developed for PLOCLO (a subsidiary of LINE) to streamline internal project tasks and resource allocations using Next.js and PostgreSQL."
+      "shortDescription": "A university management dashboard for handling student scores and analyzing overall academic quality.",
+      "description": "[Overview]\nA comprehensive University Management Dashboard developed to streamline academic data tracking, student grading processes, and educational outcome evaluations within the university ecosystem.\n\n[Key Features]\n• Student Score Management: A centralized module to record, calculate, and manage cumulative student grades and assignment scores across various courses.\n• Student Quality Analytics: Visual data dashboards analyzing grade distributions and performance benchmarks to monitor and showcase overall student academic quality and potential.\n• Academic Records Centralization: A robust structured database mapping student profiles, enrolled courses, and final transcripts securely.\n\n[Tech Stack & Implementation]\nBuilt with React and TypeScript on the frontend to deliver a highly interactive and responsive dashboard interface, paired with Prisma ORM to efficiently handle complex relational database queries."
     }
   },
   "Activities": {
